@@ -8,7 +8,7 @@ body {
 }
 
 .wish-container {
-    height: calc(100svh - 300px);
+    height: calc(100svh - 220px);
     position: relative;
     top: 0;
     left: 0;
@@ -31,9 +31,20 @@ body {
     outline: 3px solid white;
 }
 
-.wish-text-container {
+.wish-star::before {
+    content: '';
     position: absolute;
-    height: 200px;
+    border-radius: 50%;
+    width: 500%;
+    height: 500%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wish-tooltip {
+    position: absolute;
+    height: fit-content;
     width: 293px;
     top: 0;
     left: 20px;
@@ -42,19 +53,39 @@ body {
     background-color: rgb(159, 232, 247);
     color: black;
     border-radius: 10px;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    cursor: default;
 }
 
-.wish-text-container p {
+.wish-tooltip::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 125%;
+    height: 115%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wish-tooltip p {
     width: 100%;
     text-wrap: wrap;
+    padding: 10px;
+}
+
+.wish-tooltip button {
+    margin-bottom: 10px;
+    padding: 5px;
 }
 
 footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,4 +97,14 @@ textarea {
     resize: none;
     border-radius: 10px;
     font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.wish-star:hover .wish-tooltip,
+.wish-tooltip:hover {
+    display: flex;
 }
