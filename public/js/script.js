@@ -2,6 +2,8 @@ const wishContainer = document.querySelector('.wish-container');
 
 const TOOLTIP_WIDTH = 293;
 let totalWishes;
+let isStarsAdded = false;
+let waiting;
 const wishesDisplayed = [];
 
 function calcQuantityWishes() {
@@ -92,6 +94,7 @@ function createWishEl() {
             wishesDisplayed.push(wishStarObject);
         }
     }
+    return wishStarObject;
 }
 
 function calcLocation(length) {
@@ -100,7 +103,32 @@ function calcLocation(length) {
     return randomSpot;
 }
 
-calcQuantityWishes();
-for (let index = 0; index < totalWishes; index++) {
-    createWishEl();
+function removeStars() {
+    while (wishesDisplayed.length > 0) {
+        wishContainer.removeChild(wishesDisplayed.pop().wishStar);
+    }
 }
+
+function addStars() {
+    removeStars();
+    calcQuantityWishes();
+    for (let index = 0; index < totalWishes; index++) {
+        createWishEl();
+    }
+    isStarsAdded = true;
+}
+
+function waitAddStars() {
+    if (isStarsAdded == true) {
+        waiting = setTimeout(() => {
+            addStars();
+        }, 1000);
+    }
+}
+
+addStars();
+
+window.onresize = function () {
+    clearTimeout(waiting);
+    waitAddStars();
+};
