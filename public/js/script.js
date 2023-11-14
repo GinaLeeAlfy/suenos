@@ -27,7 +27,7 @@ function createWishEl() {
     wishStar.classList.add('wish-star');
     tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
-    wishLike.innerHTML = 'Like';
+    wishLike.innerHTML = '&#10084;';
 
     tooltip.append(wishContent);
     tooltip.append(wishLike);
@@ -87,7 +87,6 @@ function createWishEl() {
                 )
             ) {
                 isExisting = true;
-                console.log('working');
             }
         });
         if (isExisting == false) {
@@ -107,6 +106,7 @@ function removeStars() {
     while (wishesDisplayed.length > 0) {
         wishContainer.removeChild(wishesDisplayed.pop().wishStar);
     }
+    isStarsAdded == false;
 }
 
 function addStars() {
@@ -115,6 +115,7 @@ function addStars() {
     for (let index = 0; index < totalWishes; index++) {
         createWishEl();
     }
+    addListenerOnStars();
     isStarsAdded = true;
 }
 
@@ -124,6 +125,24 @@ function waitAddStars() {
             addStars();
         }, 1000);
     }
+}
+
+function addListenerOnStars() {
+    wishesDisplayed.forEach((element) => {
+        element.wishStar.addEventListener('click', (event) => {
+            if (event.target.tagName == 'BUTTON') {
+                event.target.classList.toggle('liked');
+                if (!event.target.classList.contains('liked')) {
+                    // grab element.id add like to api
+                } else {
+                    // grab element id remove like from api element.likes--;
+                }
+            } else {
+                element.wishStar.classList.toggle('visible');
+            }
+            console.log(event.target.tagName);
+        });
+    });
 }
 
 addStars();

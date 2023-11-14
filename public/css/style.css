@@ -10,6 +10,7 @@
     --transparent: transparent;
     --black: #0d0e17;
     --white: #ffffff;
+    --pink: rgb(222, 87, 109);
 }
 
 * {
@@ -101,6 +102,7 @@ body {
 .wish-tooltip button {
     margin-bottom: 10px;
     padding: 5px;
+    z-index: 3;
 }
 
 .wish-content {
@@ -145,6 +147,12 @@ button {
 }
 
 .wish-star:hover .wish-tooltip,
-.wish-tooltip:hover {
+.wish-tooltip:hover,
+.visible .wish-tooltip {
     display: flex;
+}
+
+.wish-tooltip .liked {
+    background-color: var(--white);
+    color: var(--pink);
 }
