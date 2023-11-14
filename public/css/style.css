@@ -87,7 +87,7 @@ body {
 }
 
 .tooltip-left {
-    left: 20px;
+    left: 10px;
 }
 
 .tooltip-bottom {
@@ -95,11 +95,7 @@ body {
 }
 
 .tooltip-right {
-    right: 20px;
-}
-
-.tooltip-center {
-    left: -146.5px;
+    right: 10px;
 }
 
 .wish-tooltip button {
