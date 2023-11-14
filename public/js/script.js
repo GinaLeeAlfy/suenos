@@ -70,11 +70,28 @@ function createWishEl() {
 
     const wishStarObject = {
         wishStar: wishStar,
-        top: topLocation,
-        left: leftLocation,
+        coordinates: [topLocation, leftLocation],
     };
 
-    return wishStarObject;
+    //no duplicates
+    if (wishesDisplayed < 1) {
+        wishesDisplayed.push(wishStarObject);
+    } else {
+        let isExisting = false;
+        wishesDisplayed.forEach((element) => {
+            if (
+                JSON.stringify(element.coordinates).includes(
+                    JSON.stringify(wishStarObject.coordinates)
+                )
+            ) {
+                isExisting = true;
+                console.log('working');
+            }
+        });
+        if (isExisting == false) {
+            wishesDisplayed.push(wishStarObject);
+        }
+    }
 }
 
 function calcLocation(length) {
