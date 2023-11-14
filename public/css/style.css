@@ -1,10 +1,26 @@
+:root {
+    --blue: rgb(159, 232, 247);
+    --dark-blue: #100d2a;
+    --off-white: #f3f4fb;
+    --gray-white: #f1f1f2;
+    --dark-gray: #cacacd;
+    --gray: #e7e9f3;
+    --transparent-gray: #3d3d423e;
+    --transparent-white: #ffffffde;
+    --transparent: transparent;
+    --black: #0d0e17;
+    --white: #ffffff;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
 }
 
 body {
-    background-color: #100d2a;
+    background-color: var(--dark-blue);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
 }
 
 .wish-container {
@@ -23,12 +39,12 @@ body {
     height: 8px;
     width: 8px;
     border-radius: 50%;
-    background-color: white;
+    background-color: var(--white);
     cursor: pointer;
 }
 
 .wish-star:hover {
-    outline: 3px solid white;
+    outline: 3px solid var(--white);
 }
 
 .wish-star::before {
@@ -46,12 +62,9 @@ body {
     position: absolute;
     height: fit-content;
     width: 293px;
-    top: 0;
-    left: 20px;
-    right: 120px;
-    bottom: 0;
-    background-color: rgb(159, 232, 247);
-    color: black;
+    max-width: 95svw;
+    background-color: var(--blue);
+    color: var(--black);
     border-radius: 10px;
     display: none;
     flex-direction: column;
@@ -70,15 +83,35 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.wish-tooltip p {
-    width: 100%;
-    text-wrap: wrap;
-    padding: 10px;
+.tooltip-top {
+    top: 150%;
+}
+
+.tooltip-left {
+    left: 20px;
+}
+
+.tooltip-bottom {
+    bottom: 150%;
+}
+
+.tooltip-right {
+    right: 20px;
+}
+
+.tooltip-center {
+    left: -146.5px;
 }
 
 .wish-tooltip button {
     margin-bottom: 10px;
     padding: 5px;
+}
+
+.wish-content {
+    height: fit-content;
+    width: 100%;
+    padding: 10px;
 }
 
 footer {
@@ -97,11 +130,22 @@ textarea {
     resize: none;
     border-radius: 10px;
     font-size: 16px;
+    max-width: 95%;
 }
 
 button {
     cursor: pointer;
     margin-bottom: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    background-color: var(--blue);
+    border: none;
+}
+
+.wish-tooltip button {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 0.5rem 1rem;
 }
 
 .wish-star:hover .wish-tooltip,
