@@ -42,19 +42,16 @@ function createWishEl(apiWish) {
     const tooltip = document.createElement('div');
     const wishContent = document.createElement('div');
     const wishLike = document.createElement('button');
+    const pTag = document.createElement('p');
+
     wishStar.classList.add('wish-star');
     tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
 
-    let splitWishText = apiWish.content.split('\n');
-    splitWishText.forEach((element) => {
-        let pTag = document.createElement('p');
-        pTag.innerHTML = element;
-        wishContent.append(pTag);
-    });
-
+    pTag.innerHTML = apiWish.content;
     wishLike.innerHTML = '&#10084;';
 
+    wishContent.append(pTag);
     tooltip.append(wishContent);
     tooltip.append(wishLike);
     wishStar.append(tooltip);
@@ -173,14 +170,9 @@ function setLoading(isLoading) {
     spinner.classList.toggle('show', isLoading);
 }
 
-function checkLines() {
-    let linesUsed = textArea.value.split('\n');
-    console.log(linesUsed);
-    if (linesUsed.length >= maxLines) {
-        let newLines = linesUsed.slice(0, maxLines);
-        let newValue = newLines.join('\n');
-        textArea.value = newValue;
-    }
+function removeLineBreaks() {
+    let newValue = textArea.value.split('\n').join('');
+    textArea.value = newValue;
 }
 
 addStars();
