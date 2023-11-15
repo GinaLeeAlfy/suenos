@@ -1,10 +1,15 @@
 const wishContainer = document.querySelector('.wish-container');
+const spinner = document.querySelector('.loading-bar');
+const textArea = document.querySelector('#new-wish');
+const submit = document.querySelector('footer button');
 
 const TOOLTIP_WIDTH = 293;
 let totalWishes;
 let isStarsAdded = false;
 let waiting;
 const wishesDisplayed = [];
+let wishData = [];
+const maxLines = 8;
 
 function calcQuantityWishes() {
     let wishContainerHeight = wishContainer.offsetHeight;
@@ -15,9 +20,22 @@ function calcQuantityWishes() {
     return totalWishes;
 }
 
-function createWishEl() {
+async function getWishData(totalWishes) {
+    const promise = await fetch('/api/wishes');
+    const processedResponse = await promise.json();
+    wishData = await processedResponse;
+
+    for (let index = 0; index < wishData.length; index++) {
+        createWishEl(wishData[index]);
+    }
+    addListenerOnStars();
+    isStarsAdded = true;
+
+    setLoading(false);
+}
+
+function createWishEl(apiWish) {
     //create wish element
-    // wishContainer = document.querySelector('.wish-container');
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
     const wishStar = document.createElement('div');
@@ -27,6 +45,14 @@ function createWishEl() {
     wishStar.classList.add('wish-star');
     tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
+
+    let splitWishText = apiWish.content.split('\n');
+    splitWishText.forEach((element) => {
+        let pTag = document.createElement('p');
+        pTag.innerHTML = element;
+        wishContent.append(pTag);
+    });
+
     wishLike.innerHTML = '&#10084;';
 
     tooltip.append(wishContent);
@@ -73,6 +99,9 @@ function createWishEl() {
     const wishStarObject = {
         wishStar: wishStar,
         coordinates: [topLocation, leftLocation],
+        id: apiWish.id,
+        content: apiWish.content,
+        votes: apiWish.votes,
     };
 
     //no duplicates
@@ -93,7 +122,6 @@ function createWishEl() {
             wishesDisplayed.push(wishStarObject);
         }
     }
-    return wishStarObject;
 }
 
 function calcLocation(length) {
@@ -112,11 +140,7 @@ function removeStars() {
 function addStars() {
     removeStars();
     calcQuantityWishes();
-    for (let index = 0; index < totalWishes; index++) {
-        createWishEl();
-    }
-    addListenerOnStars();
-    isStarsAdded = true;
+    getWishData();
 }
 
 function waitAddStars() {
@@ -143,6 +167,20 @@ function addListenerOnStars() {
             console.log(event.target.tagName);
         });
     });
+}
+
+function setLoading(isLoading) {
+    spinner.classList.toggle('show', isLoading);
+}
+
+function checkLines() {
+    let linesUsed = textArea.value.split('\n');
+    console.log(linesUsed);
+    if (linesUsed.length >= maxLines) {
+        let newLines = linesUsed.slice(0, maxLines);
+        let newValue = newLines.join('\n');
+        textArea.value = newValue;
+    }
 }
 
 addStars();

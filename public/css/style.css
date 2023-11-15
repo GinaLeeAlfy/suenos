@@ -21,16 +21,16 @@
 body {
     background-color: var(--dark-blue);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .wish-container {
-    height: calc(100svh - 241px);
+    height: calc(100svh - 245px);
     position: relative;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 300px;
+    /* bottom: 300px; */
 }
 
 .wish-star {
@@ -120,7 +120,6 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    gap: 20px;
 }
 
 textarea {
@@ -129,6 +128,7 @@ textarea {
     border-radius: 10px;
     font-size: 16px;
     max-width: 95%;
+    margin-bottom: 20px;
 }
 
 button {
@@ -138,6 +138,7 @@ button {
     border-radius: 25px;
     background-color: var(--blue);
     border: none;
+    font-size: 16px;
 }
 
 .wish-tooltip button {
@@ -155,4 +156,23 @@ button {
 .wish-tooltip .liked {
     background-color: var(--white);
     color: var(--pink);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.spinner {
+    animation: spin 0.5s infinite linear;
+    display: inline-block;
+    font-size: 30px;
+}
+
+.loading-bar {
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible;
 }

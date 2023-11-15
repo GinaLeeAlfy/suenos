@@ -7,26 +7,9 @@
         <link rel="stylesheet" href="/css/style.css" />
     </head>
     <body>
-        <section class="wish-container">
-            <div class="wish-star">
-                <div class="wish-tooltip">
-                    <div class="wish-content">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Facere ad unde ipsum perferendis recusandae
-                            dolorum similique, nulla quibusdam beatae suscipit
-                        </p>
-                        <p>
-                            maiores reiciendis accusamus qulks wlnk doul snlf
-                            enks fnles nldfn selfn sdlfne sldnf elsndf lens
-                            flsdn
-                        </p>
-                    </div>
-                    <button>&#10084;</button>
-                </div>
-            </div>
-        </section>
+        <section class="wish-container"></section>
         <footer>
+            <div class="loading-bar show"><div class="spinner">🌀</div></div>
             <textarea
                 name="new-wish"
                 id="new-wish"
@@ -34,6 +17,7 @@
                 rows="8"
                 maxlength="255"
                 placeholder="Write your wish here..."
+                oninput="checkLines()"
             ></textarea>
             <button>Make a Wish</button>
         </footer>
