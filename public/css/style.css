@@ -30,16 +30,41 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    /* bottom: 300px; */
+}
+
+@keyframes twinkle {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5);
+        box-shadow: 0 0 5px 0.5px rgba(150, 150, 150, 0.6);
+    }
+}
+
+.wish {
+    position: absolute;
+    top: 50px;
+    left: 100px;
 }
 
 .wish-star {
     position: absolute;
+    top: 0;
+    left: 0;
+    /* --star-size: '';
+    --twinkle-duration: '';
+    --twinkle-delay: ''; */
+    /* height: var(--star-size);
+    width: var(--star-size); */
     height: 8px;
     width: 8px;
     border-radius: 50%;
     background-color: var(--white);
     cursor: pointer;
+    animation: twinkle 1s infinite alternate;
+    /* animation-duration: var(--twinkle-duration);
+    animation-delay: var(--twinkle-delay); */
 }
 
 .wish-star:hover {
@@ -58,6 +83,7 @@ body {
 }
 
 .wish-tooltip {
+    cursor: pointer;
     position: absolute;
     height: fit-content;
     width: 293px;
@@ -85,7 +111,7 @@ body {
 }
 
 .tooltip-top {
-    top: 150%;
+    top: 10px;
 }
 
 .tooltip-left {
@@ -93,7 +119,7 @@ body {
 }
 
 .tooltip-bottom {
-    bottom: 150%;
+    bottom: 10px;
 }
 
 .tooltip-right {
@@ -111,6 +137,7 @@ body {
     width: 100%;
     padding: 10px;
 }
+
 .wish-content p {
     overflow-wrap: break-word;
 }
@@ -151,7 +178,7 @@ button {
     padding: 0.5rem 1rem;
 }
 
-.wish-star:hover .wish-tooltip,
+.wish:hover .wish-tooltip,
 .wish-tooltip:hover,
 .visible .wish-tooltip {
     display: flex;

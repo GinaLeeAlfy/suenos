@@ -67,12 +67,14 @@ function createWishEl(apiWish) {
     //create wish element
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
+    const wish = document.createElement('div');
     const wishStar = document.createElement('div');
     const tooltip = document.createElement('div');
     const wishContent = document.createElement('div');
     const wishLike = document.createElement('button');
     const pTag = document.createElement('p');
 
+    wish.classList.add('wish');
     wishStar.classList.add('wish-star');
     tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
@@ -83,13 +85,14 @@ function createWishEl(apiWish) {
     wishContent.append(pTag);
     tooltip.append(wishContent);
     tooltip.append(wishLike);
-    wishStar.append(tooltip);
+    wish.append(wishStar);
+    wish.append(tooltip);
 
     let topLocation = calcLocation(wishContainerHeight);
     let leftLocation = calcLocation(wishContainerWidth);
 
-    wishStar.style.top = `${topLocation}px`;
-    wishStar.style.left = `${leftLocation}px`;
+    wish.style.top = `${topLocation}px`;
+    wish.style.left = `${leftLocation}px`;
 
     let halfWishContainerHeight = wishContainerHeight / 2;
     let halfWishContainerWidth = wishContainerWidth / 2;
@@ -120,10 +123,10 @@ function createWishEl(apiWish) {
         tooltip.classList.remove('tooltip-right', 'tooltip-left');
     }
 
-    wishContainer.append(wishStar);
+    wishContainer.append(wish);
 
     const wishStarObject = {
-        wishStar: wishStar,
+        wish: wish,
         coordinates: [topLocation, leftLocation],
         id: apiWish.id,
         content: apiWish.content,
@@ -158,7 +161,7 @@ function calcLocation(length) {
 
 function removeStars() {
     while (wishesDisplayed.length > 0) {
-        wishContainer.removeChild(wishesDisplayed.pop().wishStar);
+        wishContainer.removeChild(wishesDisplayed.pop().wish);
     }
     isStarsAdded == false;
 }
@@ -179,7 +182,7 @@ function waitAddStars() {
 
 function addListenerOnStars() {
     wishesDisplayed.forEach((element) => {
-        element.wishStar.addEventListener('click', (event) => {
+        element.wish.addEventListener('click', (event) => {
             if (event.target.tagName == 'BUTTON') {
                 if (!event.target.classList.contains('liked')) {
                     // grab element.id add like to api
@@ -192,7 +195,7 @@ function addListenerOnStars() {
                 }
                 event.target.classList.toggle('liked');
             } else {
-                element.wishStar.classList.toggle('visible');
+                element.wish.classList.toggle('visible');
             }
         });
     });
