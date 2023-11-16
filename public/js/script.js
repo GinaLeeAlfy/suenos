@@ -11,6 +11,7 @@ const wishesDisplayed = [];
 let wishData = [];
 const maxLines = 8;
 
+//determine number of wishes based on area of wish container
 function calcQuantityWishes() {
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
@@ -20,6 +21,7 @@ function calcQuantityWishes() {
     return totalWishes;
 }
 
+//get wishData from api
 async function getWishData(totalWishes) {
     const promise = await fetch('/api/wishes');
     const processedResponse = await promise.json();
@@ -34,6 +36,7 @@ async function getWishData(totalWishes) {
     setLoading(false);
 }
 
+//add new wish to api
 async function sendWish(wish) {
     setLoading(true);
     const promise = await fetch('/api/wishes', {
@@ -51,6 +54,8 @@ async function sendWish(wish) {
     // }
     setLoading(false);
 }
+
+//update votes for wish
 async function sendLike(id, votes) {
     setLoading(true);
     const promise = await fetch(`/api/wishes/${id}`, {
@@ -63,9 +68,9 @@ async function sendLike(id, votes) {
     setLoading(false);
 }
 
+//create wish element
 function createWishEl(apiWish) {
     let starSize = `${determineStarSize(apiWish.votes / 30, 1, 8)}px`;
-    //create wish element
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
     const wish = document.createElement('div');
@@ -80,8 +85,11 @@ function createWishEl(apiWish) {
     tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
 
+    //add wish text
     pTag.innerHTML = apiWish.content;
     wishLike.innerHTML = '&#10084;';
+
+    //set star attributes
     wishStar.style.setProperty('--star-size', starSize);
     wishStar.style.setProperty(
         '--twinkle-duration',
@@ -92,12 +100,14 @@ function createWishEl(apiWish) {
         Math.ceil(genRandomNumber(1, 5)) + 's'
     );
 
+    //append the content to wishes
     wishContent.append(pTag);
     tooltip.append(wishContent);
     tooltip.append(wishLike);
     wish.append(wishStar);
     wish.append(tooltip);
 
+    //choose top and left location of wish
     let topLocation = calcLocation(wishContainerHeight);
     let leftLocation = calcLocation(wishContainerWidth);
 
@@ -135,6 +145,7 @@ function createWishEl(apiWish) {
 
     wishContainer.append(wish);
 
+    //make wishStarObject to store in wishesDisplayed
     const wishStarObject = {
         wish: wish,
         coordinates: [topLocation, leftLocation],
@@ -163,25 +174,30 @@ function createWishEl(apiWish) {
     }
 }
 
+//used to choose a location
 function calcLocation(length) {
     let randomSpot = Math.floor((length - 40) * Math.random()) + 15;
 
     return randomSpot;
 }
 
+//remove current wishes from screen
 function removeStars() {
     while (wishesDisplayed.length > 0) {
         wishContainer.removeChild(wishesDisplayed.pop().wish);
     }
     isStarsAdded == false;
+    wishData = [];
 }
 
+//add wishes to page
 function addStars() {
     removeStars();
     calcQuantityWishes();
     getWishData();
 }
 
+//delay adding wishes
 function waitAddStars() {
     if (isStarsAdded == true) {
         waiting = setTimeout(() => {
@@ -193,6 +209,7 @@ function waitAddStars() {
 function addListenerOnStars() {
     wishesDisplayed.forEach((element) => {
         element.wish.addEventListener('click', (event) => {
+            //event listener for likes
             if (event.target.tagName == 'BUTTON') {
                 if (!event.target.classList.contains('liked')) {
                     // grab element.id add like to api
@@ -205,29 +222,35 @@ function addListenerOnStars() {
                 }
                 event.target.classList.toggle('liked');
             } else {
+                //event listener to display tooltip on click
                 element.wish.classList.toggle('visible');
             }
         });
     });
 }
 
+//loading spinner
 function setLoading(isLoading) {
     spinner.classList.toggle('show', isLoading);
 }
 
+//no enters or line breaks in wishes
 function removeLineBreaks() {
     let newValue = textArea.value.split('\n').join('');
     textArea.value = newValue;
 }
 
+//star size between 1-8px
 const determineStarSize = (likes, min, max) => {
     return Math.min(Math.max(likes, min), max);
 };
 
+//number between min and max
 const genRandomNumber = (min, max) => {
     return Math.random() * (max - min) + min;
 };
 
+//event listener for wish submit
 submit.addEventListener('click', () => {
     //send new wish to api
     if (textArea.value.length > 0) {
@@ -236,8 +259,10 @@ submit.addEventListener('click', () => {
     }
 });
 
+//initial stars
 addStars();
 
+//if window size changes reload stars
 window.onresize = function () {
     clearTimeout(waiting);
     waitAddStars();
