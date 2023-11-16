@@ -34,6 +34,35 @@ async function getWishData(totalWishes) {
     setLoading(false);
 }
 
+async function sendWish(wish) {
+    setLoading(true);
+    const promise = await fetch('/api/wishes', {
+        method: 'POST',
+        body: JSON.stringify({ content: wish }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    // const processedResponse = await promise.json();
+    // isWishValid = await processedResponse.validWish;
+    // if (isWishValid == true) {
+    //     //do animation
+    // }
+    setLoading(false);
+}
+async function sendLike(id, votes) {
+    setLoading(true);
+    const promise = await fetch(`/api/wishes/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ votes: votes }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    setLoading(false);
+}
+
 function createWishEl(apiWish) {
     //create wish element
     let wishContainerHeight = wishContainer.offsetHeight;
@@ -152,16 +181,19 @@ function addListenerOnStars() {
     wishesDisplayed.forEach((element) => {
         element.wishStar.addEventListener('click', (event) => {
             if (event.target.tagName == 'BUTTON') {
-                event.target.classList.toggle('liked');
                 if (!event.target.classList.contains('liked')) {
                     // grab element.id add like to api
+                    element.votes++;
+                    sendLike(element.id, element.votes);
                 } else {
                     // grab element id remove like from api element.likes--;
+                    element.votes--;
+                    sendLike(element.id, element.votes);
                 }
+                event.target.classList.toggle('liked');
             } else {
                 element.wishStar.classList.toggle('visible');
             }
-            console.log(event.target.tagName);
         });
     });
 }
@@ -174,6 +206,13 @@ function removeLineBreaks() {
     let newValue = textArea.value.split('\n').join('');
     textArea.value = newValue;
 }
+
+submit.addEventListener('click', () => {
+    //send new wish to api
+    if (textArea.value.length > 0) {
+        sendWish(textArea.value);
+    }
+});
 
 addStars();
 
