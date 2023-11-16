@@ -64,6 +64,7 @@ async function sendLike(id, votes) {
 }
 
 function createWishEl(apiWish) {
+    let starSize = `${determineStarSize(apiWish.votes / 30, 1, 8)}px`;
     //create wish element
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
@@ -81,6 +82,15 @@ function createWishEl(apiWish) {
 
     pTag.innerHTML = apiWish.content;
     wishLike.innerHTML = '&#10084;';
+    wishStar.style.setProperty('--star-size', starSize);
+    wishStar.style.setProperty(
+        '--twinkle-duration',
+        Math.ceil(genRandomNumber(1, 5)) + 's'
+    );
+    wishStar.style.setProperty(
+        '--twinkle-delay',
+        Math.ceil(genRandomNumber(1, 5)) + 's'
+    );
 
     wishContent.append(pTag);
     tooltip.append(wishContent);
@@ -209,6 +219,14 @@ function removeLineBreaks() {
     let newValue = textArea.value.split('\n').join('');
     textArea.value = newValue;
 }
+
+const determineStarSize = (likes, min, max) => {
+    return Math.min(Math.max(likes, min), max);
+};
+
+const genRandomNumber = (min, max) => {
+    return Math.random() * (max - min) + min;
+};
 
 submit.addEventListener('click', () => {
     //send new wish to api

@@ -52,19 +52,17 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    /* --star-size: '';
+    --star-size: '';
     --twinkle-duration: '';
-    --twinkle-delay: ''; */
-    /* height: var(--star-size);
-    width: var(--star-size); */
-    height: 8px;
-    width: 8px;
+    --twinkle-delay: '';
+    height: var(--star-size);
+    width: var(--star-size);
     border-radius: 50%;
     background-color: var(--white);
     cursor: pointer;
-    animation: twinkle 1s infinite alternate;
-    /* animation-duration: var(--twinkle-duration);
-    animation-delay: var(--twinkle-delay); */
+    animation: twinkle infinite alternate;
+    animation-duration: var(--twinkle-duration);
+    animation-delay: var(--twinkle-delay);
 }
 
 .wish-star:hover {
