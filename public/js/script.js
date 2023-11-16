@@ -232,6 +232,7 @@ submit.addEventListener('click', () => {
     //send new wish to api
     if (textArea.value.length > 0) {
         sendWish(textArea.value);
+        textArea.value = '';
     }
 });
 
