@@ -43,7 +43,7 @@ async function sendWish(wish) {
             'Content-Type': 'application/json',
         },
     });
-
+    //ToDo when we check wishes
     // const processedResponse = await promise.json();
     // isWishValid = await processedResponse.validWish;
     // if (isWishValid == true) {
