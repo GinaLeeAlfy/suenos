@@ -155,7 +155,7 @@ function createWishEl(apiWish) {
     };
 
     //no duplicates
-    if (wishesDisplayed < 1) {
+    if (wishesDisplayed.length < 1) {
         wishesDisplayed.push(wishStarObject);
     } else {
         let isExisting = false;
