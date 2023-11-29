@@ -6,7 +6,6 @@ let totalWishes;
 let isStarsAdded = false;
 let waiting;
 const wishesDisplayed = [];
-let wishData = [];
 
 //determine number of wishes based on area of wish container
 function calcQuantityWishes() {
@@ -20,9 +19,10 @@ function calcQuantityWishes() {
 
 //get wishData from api
 async function getWishData(totalWishes) {
+    setLoading(true);
+
     const promise = await fetch('/api/wishes');
-    const processedResponse = await promise.json();
-    wishData = processedResponse;
+    const wishData = await promise.json();
 
     for (let index = 0; index < wishData.length; index++) {
         createWishEl(wishData[index]);
@@ -203,7 +203,6 @@ function removeStars() {
         wishContainer.removeChild(wishesDisplayed.pop().wish);
     }
     isStarsAdded = false;
-    wishData = [];
 }
 
 //add wishes to page
