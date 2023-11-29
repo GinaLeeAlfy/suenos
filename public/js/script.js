@@ -46,7 +46,7 @@ async function sendWish(wish) {
     //ToDo when we check wishes
     // const processedResponse = await promise.json();
     // isWishValid = await processedResponse.validWish;
-    // if (isWishValid == true) {
+    // if (isWishValid === true) {
     //     //do animation
     // }
     setLoading(false);
@@ -142,7 +142,7 @@ function createWishEl(apiWish) {
                 isExisting = true;
             }
         });
-        if (isExisting == false) {
+        if (isExisting === false) {
             wishesDisplayed.push(wishStarObject);
         }
     }
@@ -202,7 +202,7 @@ function removeStars() {
     while (wishesDisplayed.length > 0) {
         wishContainer.removeChild(wishesDisplayed.pop().wish);
     }
-    isStarsAdded == false;
+    isStarsAdded = false;
     wishData = [];
 }
 
@@ -215,7 +215,7 @@ function addStars() {
 
 //delay adding wishes
 function waitAddStars() {
-    if (isStarsAdded == true) {
+    if (isStarsAdded === true) {
         waiting = setTimeout(() => {
             addStars();
         }, 1000);
@@ -226,7 +226,7 @@ function addListenerOnStars() {
     wishesDisplayed.forEach((element) => {
         element.wish.addEventListener('click', (event) => {
             //event listener for likes
-            if (event.target.tagName == 'BUTTON') {
+            if (event.target.tagName === 'BUTTON') {
                 if (!event.target.classList.contains('liked')) {
                     // grab element.id add like to api
                     element.votes++;
