@@ -71,17 +71,14 @@ function createWishEl(apiWish) {
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
 
-    const TOOLTIP_WIDTH = 293;
     const wish = document.createElement('div');
     const wishStar = document.createElement('div');
-    const tooltip = document.createElement('div');
     const wishContent = document.createElement('div');
     const wishLike = document.createElement('button');
     const pTag = document.createElement('p');
 
     wish.classList.add('wish');
     wishStar.classList.add('wish-star');
-    tooltip.classList.add('wish-tooltip');
     wishContent.classList.add('wish-content');
 
     //add wish text
@@ -101,10 +98,7 @@ function createWishEl(apiWish) {
 
     //append the content to wishes
     wishContent.append(pTag);
-    tooltip.append(wishContent);
-    tooltip.append(wishLike);
     wish.append(wishStar);
-    wish.append(tooltip);
 
     //choose top and left location of wish
     let topLocation = calcLocation(wishContainerHeight);
@@ -113,35 +107,17 @@ function createWishEl(apiWish) {
     wish.style.top = `${topLocation}px`;
     wish.style.left = `${leftLocation}px`;
 
-    let halfWishContainerHeight = wishContainerHeight / 2;
-    let halfWishContainerWidth = wishContainerWidth / 2;
+    //create tooltip based on location of wish
+    let tooltip = createToolTip(
+        topLocation,
+        leftLocation,
+        wishContainerHeight,
+        wishContainerWidth
+    );
 
-    //position tooltip vertically
-    if (topLocation >= halfWishContainerHeight) {
-        tooltip.classList.add('tooltip-bottom');
-    } else {
-        tooltip.classList.add('tooltip-top');
-    }
-
-    //position tooltip horizontally
-    if (leftLocation >= halfWishContainerWidth) {
-        tooltip.classList.add('tooltip-right');
-    } else {
-        tooltip.classList.add('tooltip-left');
-    }
-
-    //if screen is too small position tooltip horizontal differently
-    if (wishContainerWidth <= TOOLTIP_WIDTH * 2) {
-        if (leftLocation >= halfWishContainerWidth) {
-            tooltip.style.right = `${
-                (wishContainerWidth - leftLocation) * -1 + 15
-            }px`;
-        } else {
-            tooltip.style.left = `${leftLocation * -1 + 7}px`;
-        }
-        tooltip.classList.remove('tooltip-right', 'tooltip-left');
-    }
-
+    tooltip.append(wishContent);
+    tooltip.append(wishLike);
+    wish.append(tooltip);
     wishContainer.append(wish);
 
     //make wishStarObject to store in wishesDisplayed
@@ -170,6 +146,48 @@ function createWishEl(apiWish) {
             wishesDisplayed.push(wishStarObject);
         }
     }
+}
+
+function createToolTip(
+    topLocation,
+    leftLocation,
+    wishContainerHeight,
+    wishContainerWidth
+) {
+    const TOOLTIP_WIDTH = 293;
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('wish-tooltip');
+
+    // Set the tooltip styles and classes
+
+    let halfWishContainerHeight = wishContainerHeight / 2;
+    let halfWishContainerWidth = wishContainerWidth / 2;
+    //position tooltip vertically
+    if (topLocation >= halfWishContainerHeight) {
+        tooltip.classList.add('tooltip-bottom');
+    } else {
+        tooltip.classList.add('tooltip-top');
+    }
+
+    //position tooltip horizontally
+    if (leftLocation >= halfWishContainerWidth) {
+        tooltip.classList.add('tooltip-right');
+    } else {
+        tooltip.classList.add('tooltip-left');
+    }
+
+    //if screen is too small position tooltip horizontal differently
+    if (wishContainerWidth <= TOOLTIP_WIDTH * 2) {
+        if (leftLocation >= halfWishContainerWidth) {
+            tooltip.style.right = `${
+                (wishContainerWidth - leftLocation) * -1 + 15
+            }px`;
+        } else {
+            tooltip.style.left = `${leftLocation * -1 + 7}px`;
+        }
+        tooltip.classList.remove('tooltip-right', 'tooltip-left');
+    }
+    return tooltip;
 }
 
 //used to choose a location
