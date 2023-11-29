@@ -1,15 +1,12 @@
 const wishContainer = document.querySelector('.wish-container');
-const spinner = document.querySelector('.loading-bar');
 const textArea = document.querySelector('#new-wish');
 const submit = document.querySelector('footer button');
 
-const TOOLTIP_WIDTH = 293;
 let totalWishes;
 let isStarsAdded = false;
 let waiting;
 const wishesDisplayed = [];
 let wishData = [];
-const maxLines = 8;
 
 //determine number of wishes based on area of wish container
 function calcQuantityWishes() {
@@ -73,6 +70,8 @@ function createWishEl(apiWish) {
     let starSize = `${determineStarSize(apiWish.votes / 30, 1, 8)}px`;
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
+
+    const TOOLTIP_WIDTH = 293;
     const wish = document.createElement('div');
     const wishStar = document.createElement('div');
     const tooltip = document.createElement('div');
@@ -231,6 +230,7 @@ function addListenerOnStars() {
 
 //loading spinner
 function setLoading(isLoading) {
+    const spinner = document.querySelector('.loading-bar');
     spinner.classList.toggle('show', isLoading);
 }
 
