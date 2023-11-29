@@ -160,8 +160,8 @@ function createWishEl(apiWish) {
         let isExisting = false;
         wishesDisplayed.forEach((element) => {
             if (
-                JSON.stringify(element.coordinates) ===  JSON.stringify(wishStarObject.coordinates)
-                )
+                JSON.stringify(element.coordinates) ===
+                JSON.stringify(wishStarObject.coordinates)
             ) {
                 isExisting = true;
             }
