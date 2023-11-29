@@ -22,7 +22,7 @@ function calcQuantityWishes() {
 async function getWishData(totalWishes) {
     const promise = await fetch('/api/wishes');
     const processedResponse = await promise.json();
-    wishData = await processedResponse;
+    wishData = processedResponse;
 
     for (let index = 0; index < wishData.length; index++) {
         createWishEl(wishData[index]);
