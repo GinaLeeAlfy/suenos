@@ -1,3 +1,201 @@
+:root {
+    --blue: rgb(159, 232, 247);
+    --dark-blue: #100d2a;
+    --black: #0d0e17;
+    --white: #ffffff;
+    --pink: rgb(222, 87, 109);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
-    background-color: #100d2a;
+    background-color: var(--dark-blue);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.wish-container {
+    height: calc(100svh - 245px);
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+@keyframes twinkle {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5);
+        box-shadow: 0 0 5px 0.5px rgba(150, 150, 150, 0.6);
+    }
+}
+
+.wish {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+
+.wish-star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    --star-size: '';
+    --twinkle-duration: '';
+    --twinkle-delay: '';
+    height: var(--star-size);
+    width: var(--star-size);
+    border-radius: 50%;
+    background-color: var(--white);
+    cursor: pointer;
+    animation: twinkle infinite alternate;
+    animation-duration: var(--twinkle-duration);
+    animation-delay: var(--twinkle-delay);
+}
+
+.wish-star:hover {
+    height: 8px;
+    width: 8px;
+}
+
+.wish-star::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 500%;
+    height: 500%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wish-tooltip {
+    cursor: pointer;
+    position: absolute;
+    height: fit-content;
+    width: 293px;
+    max-width: 95svw;
+    background-color: var(--blue);
+    color: var(--black);
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+}
+
+.wish-tooltip::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 125%;
+    height: 115%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tooltip-top {
+    top: 10px;
+}
+
+.tooltip-left {
+    left: 10px;
+}
+
+.tooltip-bottom {
+    bottom: 10px;
+}
+
+.tooltip-right {
+    right: 10px;
+}
+
+.wish-tooltip button {
+    margin-bottom: 10px;
+    padding: 5px;
+    z-index: 3;
+}
+
+.wish-content {
+    height: fit-content;
+    width: 100%;
+    padding: 10px;
+}
+
+.wish-content p {
+    overflow-wrap: break-word;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+textarea {
+    padding: 0.5rem;
+    resize: none;
+    border-radius: 10px;
+    font-size: 16px;
+    max-width: 95%;
+    margin-bottom: 20px;
+}
+
+button {
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    background-color: var(--blue);
+    border: none;
+    font-size: 16px;
+}
+
+.wish-tooltip button {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+}
+
+.wish:hover .wish-tooltip,
+.wish-tooltip:hover,
+.visible .wish-tooltip {
+    display: flex;
+}
+
+.wish-tooltip .liked {
+    background-color: var(--white);
+    color: var(--pink);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.spinner {
+    animation: spin 0.5s infinite linear;
+    display: inline-block;
+    font-size: 30px;
+}
+
+.loading-bar {
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible;
 }

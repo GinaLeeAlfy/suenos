@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WishfulNotes</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wishful Notes</title>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+    <body>
+        <section class="wish-container"></section>
+        <footer>
+            <div class="loading-bar show"><div class="spinner">🌀</div></div>
+            <textarea
+                name="new-wish"
+                id="new-wish"
+                cols="30"
+                rows="8"
+                maxlength="255"
+                placeholder="Write your wish here..."
+                oninput="removeLineBreaks()"
+            ></textarea>
+            <button>Make a Wish</button>
+        </footer>
+        <script src="/js/script.js"></script>
+    </body>
 </html>
