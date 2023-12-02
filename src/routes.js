@@ -7,8 +7,8 @@ const router = express.Router();
 router.get('/wishes', async (req, res) => {
     try {
         const limit = req.query.limit || 10;
-        // Verify limit is a number
-        if (isNaN(limit)) {
+        // Verify limit is a number and not a float.
+        if (isNaN(limit) || !Number.isInteger(Number(limit))) {
             res.status(400).send('Invalid limit');
             return;
         }
