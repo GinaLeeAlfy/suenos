@@ -7,6 +7,11 @@ const router = express.Router();
 router.get('/wishes', async (req, res) => {
     try {
         const limit = req.query.limit || 10;
+        // Verify limit is a number
+        if (isNaN(limit)) {
+            res.status(400).send('Invalid limit');
+            return;
+        }
         const threshold = 50;
         const highPercentage = 0.1;
         const numberOverThreshold = Math.ceil(limit * highPercentage);
