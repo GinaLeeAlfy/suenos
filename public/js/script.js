@@ -2,7 +2,6 @@ const wishContainer = document.querySelector('.wish-container');
 const textArea = document.querySelector('#new-wish');
 const submit = document.querySelector('footer button');
 
-let totalWishes;
 let isStarsAdded = false;
 let waiting;
 const wishesDisplayed = [];
@@ -11,7 +10,7 @@ const wishesDisplayed = [];
 function calcQuantityWishes() {
     let wishContainerHeight = wishContainer.offsetHeight;
     let wishContainerWidth = wishContainer.offsetWidth;
-    totalWishes = Math.round(
+    const totalWishes = Math.round(
         ((wishContainerHeight * wishContainerWidth) / 1600) * 0.1
     );
     return totalWishes;
@@ -20,8 +19,7 @@ function calcQuantityWishes() {
 //get wishData from api
 async function getWishData(totalWishes) {
     setLoading(true);
-
-    const promise = await fetch('/api/wishes');
+    const promise = await fetch(`/api/wishes?limit=${totalWishes}`);
     const wishData = await promise.json();
 
     for (let index = 0; index < wishData.length; index++) {
@@ -208,8 +206,8 @@ function removeStars() {
 //add wishes to page
 function addStars() {
     removeStars();
-    calcQuantityWishes();
-    getWishData();
+    const totalWishes = calcQuantityWishes();
+    getWishData(totalWishes);
 }
 
 //delay adding wishes
