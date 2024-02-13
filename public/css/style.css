@@ -134,6 +134,26 @@ body {
     overflow-wrap: break-word;
 }
 
+.profanity {
+    width: 293px;
+    max-width: 95svw;
+    background-color: var(--blue);
+    color: var(--black);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 30%;
+    padding: 1rem 0.5rem;
+    z-index: 4;
+    position: relative;
+}
+.hidden {
+    visibility: hidden;
+}
+
 footer {
     position: absolute;
     left: 0;
@@ -168,6 +188,17 @@ button {
     background-color: var(--dark-blue);
     color: var(--white);
     padding: 0.5rem 1rem;
+}
+.profanity button {
+    padding: 0;
+    align-self: flex-start;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: red;
+}
+.profanity button:hover {
+    color: var(--dark-blue);
 }
 
 .wish:hover .wish-tooltip,

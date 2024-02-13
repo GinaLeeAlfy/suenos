@@ -1,6 +1,8 @@
 const wishContainer = document.querySelector('.wish-container');
 const textArea = document.querySelector('#new-wish');
 const submit = document.querySelector('footer button');
+const profanityAlert = document.querySelector('.profanity');
+const profanityAlertButton = document.querySelector('.profanity button');
 
 let isStarsAdded = false;
 let waiting;
@@ -41,12 +43,18 @@ async function sendWish(wish) {
             'Content-Type': 'application/json',
         },
     });
-    //ToDo when we check wishes
-    // const processedResponse = await promise.json();
-    // isWishValid = await processedResponse.validWish;
-    // if (isWishValid === true) {
-    //     //do animation
-    // }
+    // ToDo when we check wishes
+    const isWishValid = await promise.status;
+    console.log(isWishValid);
+    if (promise.ok) {
+        //do animation
+    } else if (promise.status === 400) {
+        profanityAlert.classList.remove('hidden');
+    } else {
+        alert('Sorry there was a server error');
+        //server error
+    }
+
     setLoading(false);
 }
 
@@ -263,6 +271,10 @@ const determineStarSize = (likes, min, max) => {
 const genRandomNumber = (min, max) => {
     return Math.random() * (max - min) + min;
 };
+
+profanityAlertButton.addEventListener('click', () => {
+    profanityAlert.classList.add('hidden');
+});
 
 //event listener for wish submit
 submit.addEventListener('click', () => {
