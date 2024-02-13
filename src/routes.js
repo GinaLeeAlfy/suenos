@@ -1,8 +1,10 @@
 import express from 'express';
 import { getWishes, getWishById, addWish, updateWish } from './db.js';
 import { shuffleArray } from './utilities.js';
+import Filter from 'bad-words';
 
 const router = express.Router();
+const filter = new Filter();
 
 router.get('/wishes', async (req, res) => {
     try {
@@ -47,7 +49,7 @@ router.get('/wishes', async (req, res) => {
 router.post('/wishes', async (req, res) => {
     try {
         const { content } = req.body;
-        if (content.isProfane()) {
+        if (filter.isProfane(content)) {
             console.info(`Received ${content} which is invalid.`);
             res.status(400).send('Wish contains profanity');
         } else {
