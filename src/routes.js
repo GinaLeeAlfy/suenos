@@ -47,8 +47,13 @@ router.get('/wishes', async (req, res) => {
 router.post('/wishes', async (req, res) => {
     try {
         const { content } = req.body;
-        await addWish(content);
-        res.status(201).send();
+        if (content.isProfane()) {
+            console.info(`Received ${content} which is invalid.`);
+            res.status(400).send('Wish contains profanity');
+        } else {
+            await addWish(content);
+            res.status(201).send();
+        }
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
