@@ -23,6 +23,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    display: flex;
+    justify-content: center;
 }
 
 @keyframes twinkle {
@@ -144,11 +146,10 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: auto;
-    margin-top: 30%;
-    padding: 1rem 0.5rem;
+    padding: 1.5rem 0.5rem;
     z-index: 4;
-    position: relative;
+    position: absolute;
+    top: 30%;
 }
 .hidden {
     visibility: hidden;

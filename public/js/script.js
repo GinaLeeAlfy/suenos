@@ -43,9 +43,11 @@ async function sendWish(wish) {
             'Content-Type': 'application/json',
         },
     });
-    // ToDo when we check wishes
+    // check status of wish
     if (promise.ok) {
-        //do animation
+        // ToDo animation
+        textArea.value = '';
+        profanityAlert.classList.add('hidden');
     } else if (promise.status === 400) {
         profanityAlert.classList.remove('hidden');
     } else {
@@ -279,7 +281,6 @@ submit.addEventListener('click', () => {
     //send new wish to api
     if (textArea.value.length > 0) {
         sendWish(textArea.value);
-        textArea.value = '';
     }
 });
 
