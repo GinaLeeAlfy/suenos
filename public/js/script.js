@@ -44,8 +44,6 @@ async function sendWish(wish) {
         },
     });
     // ToDo when we check wishes
-    const isWishValid = await promise.status;
-    console.log(isWishValid);
     if (promise.ok) {
         //do animation
     } else if (promise.status === 400) {
