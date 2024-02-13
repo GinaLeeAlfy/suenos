@@ -137,8 +137,8 @@ body {
 .profanity {
     width: 293px;
     max-width: 95svw;
-    background-color: var(--blue);
-    color: var(--black);
+    background-color: var(--white);
+    color: red;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -196,6 +196,7 @@ button {
     top: 0.5rem;
     right: 0.5rem;
     color: red;
+    background-color: transparent;
 }
 .profanity button:hover {
     color: var(--dark-blue);
