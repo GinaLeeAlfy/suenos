@@ -89,7 +89,7 @@ function createWishEl(apiWish) {
 
     //add wish text
     pTag.innerHTML = apiWish.content;
-    wishLike.innerHTML = '&#10084;';
+    wishLike.innerHTML = '🤍';
 
     //set star attributes
     wishStar.style.setProperty('--star-size', starSize);
@@ -236,10 +236,12 @@ function addListenerOnStars() {
                     // grab element.id add like to api
                     element.votes++;
                     sendLike(element.id, element.votes);
+                    event.target.innerHTML = '❤️';
                 } else {
                     // grab element id remove like from api element.likes--;
                     element.votes--;
                     sendLike(element.id, element.votes);
+                    event.target.innerHTML = '🤍';
                 }
                 event.target.classList.toggle('liked');
             } else {
