@@ -203,8 +203,6 @@ button {
     color: var(--dark-blue);
 }
 
-.wish:hover .wish-tooltip,
-.wish-tooltip:hover,
 .visible .wish-tooltip {
     display: flex;
 }
@@ -231,4 +229,12 @@ button {
 
 .show {
     visibility: visible;
+}
+
+@media (pointer: coarse) and (hover: hover),
+    (pointer: fine) and (hover: hover) {
+    .wish:hover .wish-tooltip,
+    .wish-tooltip:hover {
+        display: flex;
+    }
 }
