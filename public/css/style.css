@@ -15,14 +15,12 @@ body {
     background-color: var(--dark-blue);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
 
 .wish-container {
-    height: calc(100svh - 284px);
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
 }
@@ -60,22 +58,6 @@ body {
     animation-delay: var(--twinkle-delay);
 }
 
-.wish-star:hover {
-    height: 8px;
-    width: 8px;
-}
-
-.wish-star::before {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 500%;
-    height: 500%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .wish-tooltip {
     cursor: pointer;
     position: absolute;
@@ -91,17 +73,6 @@ body {
     align-items: center;
     text-align: center;
     z-index: 2;
-}
-
-.wish-tooltip::before {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 125%;
-    height: 115%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .tooltip-top {
@@ -156,10 +127,6 @@ body {
 }
 
 footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -233,8 +200,35 @@ button {
 
 @media (pointer: coarse) and (hover: hover),
     (pointer: fine) and (hover: hover) {
+    .wish-star:hover {
+        height: 8px;
+        width: 8px;
+    }
+
+    .wish-star::before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        width: 500%;
+        height: 500%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     .wish:hover .wish-tooltip,
     .wish-tooltip:hover {
         display: flex;
+    }
+
+    .wish-tooltip::before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        width: 125%;
+        height: 115%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 }
