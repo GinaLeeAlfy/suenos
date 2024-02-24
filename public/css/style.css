@@ -198,6 +198,56 @@ button {
     visibility: visible;
 }
 
+.shooting-star {
+    --shooting-distance: '';
+    --shooting-angle: '';
+    position: absolute;
+    visibility: hidden;
+    bottom: 25%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background-color: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
+        0 0 0 8px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1);
+    animation: idle;
+}
+
+.active-shooting-star {
+    visibility: visible;
+    animation: shooting 3s linear forwards;
+}
+
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg, #fff, transparent);
+}
+
+@keyframes shooting {
+    0% {
+        transform: rotate(87deg) translateX(0);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(87deg) translateX(-100svh);
+        opacity: 0;
+    }
+}
+
+@keyframes idle {
+    100% {
+    }
+}
+
 @media (pointer: coarse) and (hover: hover),
     (pointer: fine) and (hover: hover) {
     .wish-star:hover {

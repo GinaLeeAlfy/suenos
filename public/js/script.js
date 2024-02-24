@@ -35,6 +35,7 @@ async function getWishData(totalWishes) {
 
 //add new wish to api
 async function sendWish(wish) {
+    const shootingStar = document.querySelector('.shooting-star');
     setLoading(true);
     const promise = await fetch('/api/wishes', {
         method: 'POST',
@@ -45,9 +46,14 @@ async function sendWish(wish) {
     });
     // check status of wish
     if (promise.ok) {
-        // ToDo animation
+        //add animation
+        shootingStar.classList.add('active-shooting-star');
         textArea.value = '';
         profanityAlert.classList.add('hidden');
+        //remove animation after 3s
+        setTimeout(() => {
+            shootingStar.classList.remove('active-shooting-star');
+        }, 3000);
     } else if (promise.status === 400) {
         profanityAlert.classList.remove('hidden');
     } else {
